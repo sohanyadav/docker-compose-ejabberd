@@ -1,0 +1,31 @@
+---
+- name: create ejabberd dirs
+  file:
+    path="{{ item|safe|trim }}"
+    state=directory
+    owner="{{ ejabberd_user }}"
+    group="{{ ejabberd_group }}"
+    mode=777
+    recurse=yes
+  changed_when: "False"
+  with_items:
+    - "{{ ejabberd_log_dir }}"
+    - "{{ ejabberd_data_dir }}"
+    - "{{ ejabberd_opt_dir }}"
+    - "{{ ejabberd_config_dir }}"
+  tags:
+    - ejabberd
+
+- name: create ejabberd log file
+  file:
+    path="{{ item|safe|trim }}"
+    state=touch
+    owner="{{ ejabberd_user }}"
+    group="{{ ejabberd_group }}"
+    mode=777
+    recurse=no
+  changed_when: "False"
+  with_items:
+    - "{{ ejabberd_log_dir }}/ejabberd.log"
+  tags:
+      - ejabberd

@@ -1,0 +1,25 @@
+{{ lookup('template', playbook_dir + '/_shared-files/base-docker-compose.yml' ) }}
+
+#
+# docker-file-start
+#
+version: "3.5"
+services:
+  ejabberd_service:
+    # include base-docker-compose-vars
+    << : *srv-json
+
+    image: ejabberd/ecs:{{ ejabberd_version }}
+    container_name: ejabberd-server
+    volumes:
+      - {{ ejabberd_log_dir }}:/home/ejabberd/logs/
+      - {{ ejabberd_data_dir }}/database:/home/ejabberd/database/
+      - {{ ejabberd_config_dir }}/ejabberd.yml:/home/ejabberd/conf/ejabberd.yml
+    ports:
+      - "5222:5222"
+      - "5269:5269"
+      - "5280:5280"
+    environment:
+      - XMPP_DOMAIN={{ ejabberd_host }}
+      - ERLANG_NODE=ejabberdcd
+    network_mode: host

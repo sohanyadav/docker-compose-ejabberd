@@ -1,0 +1,21 @@
+---
+- name: users ejabberd
+  import_tasks: users.yml
+  tags:
+    - ejabberd
+
+- name: configure ejabberd
+  import_tasks: configure.yml
+  tags:
+    - ejabberd
+
+- name: install docker ejabberd
+  import_tasks: install.yml
+  tags:
+    - ejabberd
+
+- name: install docker usercreate.yml
+  import_tasks: usercreate.yml
+  tags:
+        - ejabberd
+

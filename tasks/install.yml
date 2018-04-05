@@ -1,0 +1,35 @@
+---
+- name: copy ejabberd docker-compose file
+  template:
+    src={{ item }}
+    dest={{ ejabberd_opt_dir }}/{{ item | basename }}
+    owner="{{ ejabberd_user }}"
+    group="{{ ejabberd_group }}"
+    mode=777
+  with_fileglob:
+    - ../templates/docker-compose.yml
+  tags:
+    - ejabberd
+
+- name: copy ejabberd config file
+  template:
+    src={{ item }}
+    dest={{ ejabberd_config_dir }}/{{ item | basename }}
+    owner="{{ ejabberd_user }}"
+    group="{{ ejabberd_group }}"
+    mode=777
+  with_fileglob:
+    - ../templates/ejabberd.yml
+  tags:
+    - ejabberd
+
+- name: start ejabberd docker-compose
+  become: true
+  docker_service:
+    project_src: "{{ ejabberd_opt_dir }}"
+    state: present
+  tags:
+    - ejabberd
+
+
+

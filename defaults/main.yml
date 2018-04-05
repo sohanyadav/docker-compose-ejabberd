@@ -1,0 +1,13 @@
+---
+ejabberd_version: "18.01"
+ejabberd_user: www-data
+ejabberd_group: www-data
+
+mount_path: /data
+# ejabberd settings
+ejabberd_opt_dir: "/opt/ejabberd"
+ejabberd_log_dir: "{{ mount_path }}/log/ejabberd"
+ejabberd_data_dir: "{{ mount_path }}/var/lib/ejabberd"
+ejabberd_config_dir: "{{ ejabberd_opt_dir }}/config"
+#
+ejabberd_host: chatserver.com

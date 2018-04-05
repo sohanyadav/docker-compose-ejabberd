@@ -1,0 +1,10 @@
+---
+- name: setup group
+  group: name="{{ ejabberd_group }}" system=yes
+  tags:
+    - ejabberd
+
+- name: setup user
+  user: name="{{ ejabberd_user }}" system=yes group="{{ ejabberd_group }}"
+  tags:
+    - ejabberd
